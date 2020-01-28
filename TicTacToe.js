@@ -32,51 +32,50 @@ module.exports = class TicTacToe
         {
             default:
                 inputError = true;
-                output[0] = "Square Not Found";
-                output[1] = "Please enter a 1,2 or 3\n Followed by A,B or C";
-                output[2] = "example \'3A\'";
+                output[1] = "Square Not Found";
+                output[2] = "Please enter a 1,2 or 3\n Followed by A,B or C";
+                output[3] = "example \'3A\'";
             break;
 
-            case "1A":
-            case "2A":
-            case "3A":
+            case "RESTART":
+                this.startGame();
+                fCallback(["Starting Game", this.drawBoard(),
+                "Please enter a 1,2 or 3\n Followed by A,B or C", "example \'3A\'"]);
+                break;
+
+            case "1A": case "2A": case "3A":
                 x = parseInt(input.charAt(0)) - 1; 
                 y = 0;
                 break;
 
-            case "A1":
-            case "A2":
-            case "A3":
+            case "A1": case "A2": case "A3":
                 x = parseInt(input.charAt(1)) - 1; 
                 y = 0;
                 break;
 
-            case "1B":
-            case "2B":
-            case "3B":
+            case "1B": case "2B": case "3B":
                 x = parseInt(input.charAt(0)) - 1; 
                 y = 1;
                 break;
 
-            case "B1":
-            case "B2":
-            case "B3":
+            case "B1": case "B2": case "B3":
                 x = parseInt(input.charAt(1)) - 1; 
                 y = 1;
                 break;
 
-            case "1C":
-            case "2C":
-            case "3C":
+            case "1C": case "2C": case "3C":
                 x = parseInt(input.charAt(0)) - 1; 
                 y = 2;
                 break;
 
-            case "C1":
-            case "C2":
-            case "C3":
+            case "C1": case "C2": case "C3":
                 x = parseInt(input.charAt(1)) - 1; 
                 y = 2;
+                break;
+
+            case "-HELP":
+                inputError = true;
+                output[1] = "That was a joke";
                 break;
         }
 
@@ -166,17 +165,19 @@ module.exports = class TicTacToe
             }
         }
 
-        if(empty.length == 0)
+        if(empty.length == 0 || this.board[1][1] == "X")
         {
             //Picks a random non corner if there all taken
-            for(let i = 0; i < 3; i++)
+            //Or if computer controls the center
+            empty = [];
+            
+            for(let i = 0; i < 3; i += 2)
             {
-                for(let n = 0; n < 3; n++)
-                {
-                    if(this.board[i][n] == "_")
-                    
-                        empty.push({ x: i, y: n});
-                }
+                if(this.board[i][1] == "_")
+                    empty.push({ x: i, y: 1});
+
+                if(this.board[1][i] == "_")
+                    empty.push({ x: 1, y: i});
             }   
         }
 
@@ -242,7 +243,9 @@ module.exports = class TicTacToe
             "That was questionable",
             "Really?",
             "This shouldn't be that hard",
-            "Was that a accident?"
+            "Was that a accident?",
+            "Type -Help if if you find this to difficult",
+            "Interesting?"
         ];
 
         return insults[Math.floor(Math.random() * insults.length)];
