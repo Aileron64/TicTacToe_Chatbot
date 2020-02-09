@@ -245,7 +245,11 @@ module.exports = class TicTacToe
             "This shouldn't be that hard",
             "Was that a accident?",
             "Type -Help if if you find this to difficult",
-            "Interesting?"
+            "Interesting?",
+            "Bless your little heart",
+            "I'm sure your doing the best you can",
+            "Can you explain what you were going for exactly?",
+            "I feel like this may ask to much of you"
         ];
 
         return insults[Math.floor(Math.random() * insults.length)];
