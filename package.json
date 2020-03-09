@@ -26,5 +26,8 @@
   "homepage": "https://github.com/rhildred/es6test#readme",
   "dependencies": {
     "express": "*"
+  },
+  "engines": {
+    "node": "12.13.0"
   }
 }
